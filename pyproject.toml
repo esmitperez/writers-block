@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "app"
+version = "0.1.0"
+description = ""
+authors = ["Esmit Pérez <esmitperez@gmail.com>"]
+readme = "README.md"
+packages = [
+    {include = "app", from = "src"}, 
+    {include = "hal9000", from = "src"}
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^2.3.2"
+pytest = "^7.3.1"
+python-dotenv = "^1.0.0"
+langchain = "^0.0.181"
+openai = "^0.27.7"
+pydantic = "^1.10.8"
+
+[tool.poetry.group.dev.dependencies]
+yapf = "^0.33.0"
+flake8 = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
