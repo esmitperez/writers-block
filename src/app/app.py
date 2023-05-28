@@ -1,5 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request
 from dotenv import load_dotenv
+import frontmatter
 
 import hal9000
 
@@ -11,49 +12,39 @@ load_dotenv()
 app = Flask(__name__)
 
 
-style_rules = [
-        {
-        'index': 1,
-        'title ': "Active Voice",
-        'text': """
-        Use active voice instead of passive voice. Make clear who's performing the action.
-
-        Good: Send a query to the service. The server sends an acknowledgment. 
-        Bad: The service is queried, and an acknowledgment is sent.
-
-        Good: Send a query to the service. The server sends an acknowledgment
-        Bad: The service is queried by you, and an acknowledgment is sent by the server
-        """
-    },
-    {
-        'index': 2,
-        'title ': "Sentence structure",
-        'text': """
-        If you want to tell the reader to do something, try to mention the circumstance, conditions, or goal before you provide the instruction.
-        Good: For more information, see [link to other document]. 
-        Bad: See [link to other document] for more information.
-
-        Good: To delete the entire document, click Delete. 
-        Bad: Click Delete if you want to delete the entire document.
-        """
-    },
-    {
-        'index': 3,
-        'title ': "Anthropomorphism",
-        'text': """
-            Don't attribute human qualities to software or hardware.
-
-            Good: A Delimiter object specifies where to split a string
-            Bad: A Delimiter object tells the splitter where a string should be broken
-
-            Good: The PC detects a new device
-            Bad: The PC sees a new device.
-        """
-    },
-    ]
+style_rules = []
 
 def get_rules():
     return style_rules
+
+def insert_rule(text):
+    idx = len(style_rules) + 1
+    new_rule = {
+        'index': idx,
+        'title ': f"Sentence structure {idx}",
+        'text': text
+    }
+
+    style_rules.append(new_rule)
+    return new_rule
+
+def load_rules_from_dir():
+    rules_dir = os.getenv('STYLE_RULES_DIR')
+    
+    
+    if rules_dir is None:
+        return
+
+    for filename in os.listdir(rules_dir):
+        if filename.endswith(".md"):
+            style_rule = frontmatter.load(os.path.join(rules_dir, filename))
+            text = style_rule.content
+            # post.get('date')
+            insert_rule(text)
+        else:
+            continue
+    
+load_rules_from_dir()
 
 @app.route('/')
 def root():
@@ -76,16 +67,11 @@ def create_new_style_rule():
     data = request.get_json(force=True)
     text = data.get('text')
 
-    idx = len(style_rules) + 1
-    new_rule = {
-        'index': idx,
-        'title ': f"Sentence structure {idx}",
-        'text': text
-    }
-
-    style_rules.append(new_rule)
+    new_rule = insert_rule(text)
 
     return new_rule
+
+
 
 #  Delete a specific sticky note
 @app.route('/rules/<index>', methods=['DELETE'])

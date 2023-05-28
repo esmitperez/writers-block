@@ -27,7 +27,7 @@ def correct_text(style_rules: list, text_to_correct: str):
         """
     
     template = """
-    You are an expert style editor , and you always apply the following rules:
+    You are an expert style editor, and you always apply the following rule:
     {rules_section}
 
     Correct the following text:
