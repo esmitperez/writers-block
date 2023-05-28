@@ -1,5 +1,5 @@
 <script>
-    let currentText = "";
+    let currentText = "this iteem is not speled corectly";
     let correctedText = ""
 
     async function critiqueText() {
@@ -24,7 +24,7 @@
 <form on:submit|preventDefault={critiqueText}>
     <div>
         Text to Correct
-        <textarea bind:value={currentText} id="stickyText" />
+        <textarea bind:value={currentText} id="stickyText"/>
     </div>
     <button type="submit">Correct</button>
 

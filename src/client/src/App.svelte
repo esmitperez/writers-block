@@ -11,7 +11,7 @@
   });
 </script>
 
-<!-- <RuleEditor /> -->
+<RuleEditor />
 
 <Editor />
 
