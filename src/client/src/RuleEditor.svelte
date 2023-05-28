@@ -1,19 +1,19 @@
-<script>
+<script lang="ts">
 	import { createStyleRule} from './utils';
     import { currentText } from './rule_store';
 </script>
 
 <form on:submit|preventDefault={createStyleRule}>
     <div>
-        Enter your rule...
+        Add Rule
         <textarea bind:value={$currentText} id="stickyText" />
     </div>
-    <button type="submit">Style Rule +</button>
+    <button type="submit">⚡️ New Rule</button>
 </form>
 
 <style>
     textarea {
         width: 100%;
-        height: 200px;
+        min-height: 5em;
     }
 </style>

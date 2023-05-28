@@ -1,6 +1,6 @@
 ---
-title: Anthropomorphism
-taxonomy: Language and Grammar
+name: Anthropomorphism
+topic: Language and Grammar
 ---
 
 Don't attribute human qualities to software or hardware.

@@ -1,6 +1,6 @@
 ---
-title: Active Voice
-taxonomy: Language and Grammar
+name: Active Voice
+topic: Language and Grammar
 ---
 
 Use active voice instead of passive voice. Make clear who's performing the action.

@@ -1,6 +1,5 @@
 import { styleRuleList, currentText } from './rule_store';
 
-
 export async function getStyleRules() {
     let response = await fetch("./rules", {
         method: "GET",
@@ -10,7 +9,18 @@ export async function getStyleRules() {
     });
 
     let result = await response.json();
-    styleRuleList.set(result.style_rules);
+    console.log(result);
+
+    let simplifiedRules = result.style_rules.map((rule, index) => {
+        return {
+            index,
+            name: rule.name,
+        };
+    });
+
+    styleRuleList.set(simplifiedRules);
+    console.log(simplifiedRules);
+
 }
 
 export async function createStyleRule() {

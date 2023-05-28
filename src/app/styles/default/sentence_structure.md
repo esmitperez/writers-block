@@ -1,6 +1,6 @@
 ---
-title: Sentence structure
-taxonomy: Language and Grammar
+name: Sentence structure
+topic: Language and Grammar
 ---
 
 If you want to tell the reader to do something, try to mention the circumstance, conditions, or goal before you provide the instruction.

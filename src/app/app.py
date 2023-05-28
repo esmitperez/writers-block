@@ -1,6 +1,7 @@
 from flask import Flask, render_template, send_from_directory, request
 from dotenv import load_dotenv
 import frontmatter
+from markdownify import markdownify as md
 
 import hal9000
 
@@ -17,11 +18,12 @@ style_rules = []
 def get_rules():
     return style_rules
 
-def insert_rule(text):
+def insert_rule(name, topic, text):
     idx = len(style_rules) + 1
     new_rule = {
         'index': idx,
-        'title ': f"Sentence structure {idx}",
+        'name': name,
+        'topic': topic,
         'text': text
     }
 
@@ -31,16 +33,17 @@ def insert_rule(text):
 def load_rules_from_dir():
     rules_dir = os.getenv('STYLE_RULES_DIR')
     
-    
     if rules_dir is None:
         return
 
     for filename in os.listdir(rules_dir):
         if filename.endswith(".md"):
             style_rule = frontmatter.load(os.path.join(rules_dir, filename))
+            name = style_rule.get('name')
+            topic = style_rule.get('topic')
             text = style_rule.content
             # post.get('date')
-            insert_rule(text)
+            insert_rule(name, topic , text)
         else:
             continue
     
@@ -87,14 +90,18 @@ def delete_style_rule(index):
 #  Create a new sticky note
 @app.route('/critique', methods=['POST'])
 def suggest_corrections():
-    
+
     data = request.get_json(force=True)
     text = data.get('text')
 
     corrected = hal9000.correct_text(style_rules, text)
     print(corrected)
     return {
-        'suggestion': {'original_text': text, 'suggested_text': corrected}
+        'suggestion': {
+            'original_text': text, 
+            'suggested_text': corrected, 
+            'suggested_markdown': f"```{md(corrected)}```"
+        }
     }
 
 
