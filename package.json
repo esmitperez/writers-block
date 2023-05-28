@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "svelte-quill": "^1.2.0"
+  }
+}
