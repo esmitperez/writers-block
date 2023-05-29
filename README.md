@@ -21,6 +21,7 @@ poetry install
 
 First, start the Flask backend.
 ```shell
+pip install flask
 PYTHONPATH=src/libs FLASK_APP=src/app/app.py flask run
 ```
 
