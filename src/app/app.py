@@ -52,7 +52,6 @@ load_rules_from_dir()
 @app.route('/')
 def root():
     return send_from_directory('../client/dist', 'index.html')
-    # return render_template('index.html', name="You")
 
 # Path for the rest of the static files (JS/CSS)
 @app.route('/<path:path>')
@@ -74,8 +73,6 @@ def create_new_style_rule():
 
     return new_rule
 
-
-
 #  Delete a specific sticky note
 @app.route('/rules/<index>', methods=['DELETE'])
 def delete_style_rule(index):
@@ -93,13 +90,18 @@ def suggest_corrections():
 
     data = request.get_json(force=True)
     text = data.get('text')
+    openai_api_key = data.get('openai_api_key')
 
-    corrected = hal9000.correct_text(style_rules, text)
+    # set env_key to environment OPENAI_API_KEY if not set via POST
+    if openai_api_key is None:
+        openai_api_key = os.getenv('OPENAI_API_KEY')
+
+    corrected = hal9000.correct_text(openai_api_key, style_rules, text)
     print(corrected)
     return {
         'suggestion': {
             'original_text': text, 
-            'suggested_text': corrected, 
+            'suggested_text': corrected,
             'suggested_markdown': f"```{md(corrected)}```"
         }
     }

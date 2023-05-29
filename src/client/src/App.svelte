@@ -16,9 +16,7 @@
   } from "@smui/drawer";
   import Button, { Label } from "@smui/button";
 
-  import { mdiListBoxOutline } from "@mdi/js";
-  import IconButton, { Icon } from "@smui/icon-button";
-  import { Svg } from "@smui/common";
+  import { Icon } from "@smui/icon-button";
   import List, { Item, Text, Graphic, Separator, Subheader } from "@smui/list";
 
   onMount(async () => {
@@ -40,11 +38,31 @@
   href="https://cdn.jsdelivr.net/npm/svelte-material-ui@6.2.0/bare.css"
 />
 
+<!-- Material Icons -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+/>
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+/>
+<!-- Roboto -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700"
+/>
+<!-- Roboto Mono -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css?family=Roboto+Mono"
+/>
+
 <div class="drawer-container">
   <Drawer variant="modal" fixed={false} bind:open>
     <Header>
       <Title>Writer's Block</Title>
-      <Subtitle>Your AI-poweered style editor</Subtitle>
+      <Subtitle>Your AI-powered style editor</Subtitle>
     </Header>
     <Content>
       <Separator />
@@ -66,23 +84,25 @@
   <!-- Don't include fixed={false} if this is a page wide drawer.
 It adds a style for absolute positioning. -->
   <Scrim fixed={false} />
+
   <AppContent class="app-content">
     <main class="main-content">
       <div class="mdc-typography--headline2">Writer's Block</div>
-      <div class="mdc-typography--subtitle1">Your AI-poweered style editor</div>
+      <div class="mdc-typography--subtitle1">Your AI-powered style editor</div>
 
       <Button on:click={() => (open = !open)}>
-        <Icon component={Svg} viewBox="0 0 24 24">
-          <path fill="currentColor" d={mdiListBoxOutline} />
-        </Icon><Label>View Rules</Label>
+        <Icon class="material-icons" on>list_box_outline</Icon>
+
+        <Label>View Rules</Label>
       </Button>
       <br /><br />
+
       <div style="height: 700px;">
         <TextEditor />
       </div>
-      
-      <div class="mdc-typography--body2">Created by <a href="#">Esmit Pérez</a> | Powered by 🦜⛓️ LangChain</div>
-
+      <div class="mdc-typography--body2">
+        Created by <a href="https://github.com/esmitperez/">Esmit Pérez</a> | Powered by 🦜⛓️ LangChain
+      </div>
     </main>
   </AppContent>
 </div>
@@ -90,31 +110,8 @@ It adds a style for absolute positioning. -->
 <style lang="scss">
   // Import all the styles for the classes.
   @use "@material/typography/mdc-typography";
-  // The following classes become available:
-  //   mdc-typography--headline1
-  //   mdc-typography--headline2
-  //   mdc-typography--headline3
-  //   mdc-typography--headline4
-  //   mdc-typography--headline5
-  //   mdc-typography--headline6
-  //   mdc-typography--subtitle1
-  //   mdc-typography--subtitle2
-  //   mdc-typography--body1
-  //   mdc-typography--body2
-  //   mdc-typography--caption
-  //   mdc-typography--button
-  //   mdc-typography--overline
-  //   mdc-typography--body1
-
-  // Import the mixins.
   @use "@material/typography/mixins" as typography;
 
-  //
-  // Some defaults that may be helpful to you.
-  // If you just want to use these, and not the classes, you can instead just
-  // @use '@material/typography/mixins' as typography, and your CSS file will be
-  // smaller.
-  //
   html {
     @include typography.typography("body1");
   }
@@ -168,7 +165,7 @@ It adds a style for absolute positioning. -->
   /** Other rules */
   /* These classes are only needed because the
     drawer is in a container on the page. */
-    .drawer-container {
+  .drawer-container {
     position: relative;
     display: flex;
     /* height: 350px; */
@@ -189,7 +186,6 @@ It adds a style for absolute positioning. -->
   .main-content {
     overflow: auto;
     padding: 16px;
-    height: 100%;
     box-sizing: border-box;
   }
 </style>

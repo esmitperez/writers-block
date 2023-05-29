@@ -9,7 +9,6 @@ export async function getStyleRules() {
     });
 
     let result = await response.json();
-    console.log(result);
 
     let simplifiedRules = result.style_rules.map((rule, index) => {
         return {
@@ -19,8 +18,6 @@ export async function getStyleRules() {
     });
 
     styleRuleList.set(simplifiedRules);
-    console.log(simplifiedRules);
-
 }
 
 export async function createStyleRule() {
