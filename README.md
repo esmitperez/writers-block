@@ -13,21 +13,28 @@ Writer's Block is a proof of concept for a virtual writing companion, providing 
 
 ## Running locally
 
-Setup your local enviroment:
-
+Create an environment file using the sample, and edit it to supply required values:
 ```shell
-poetry install
+cp .env_sample .env
 ```
 
-First, start the Flask backend.
+
+Activate the environment:
 ```shell
-pip install flask
+poetry install
+poetry shell
+```
+
+Then, start the Flask backend.
+```shell
 PYTHONPATH=src/libs FLASK_APP=src/app/app.py flask run
 ```
 
-Then start the Front-End
+Start the Front-End
 ```shell
+npm install
 cd src/client
+npm install
 npm run autobuild
 ```
 
