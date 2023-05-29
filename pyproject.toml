@@ -6,7 +6,6 @@ authors = ["Esmit Pérez <esmitperez@gmail.com>"]
 readme = "README.md"
 packages = [
     {include = "app", from = "src"}, 
-    {include = "hal9000", from = "src"}
 ]
 
 [tool.poetry.dependencies]
