@@ -7,7 +7,7 @@ from typing import List
 
 
 
-model_name = 'text-davinci-003'
+model_name = 'gpt-3.5-turbo'
 temperature = 0.0
 
 
